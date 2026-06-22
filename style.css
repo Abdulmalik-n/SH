@@ -95,11 +95,11 @@ body {
   transition: opacity 0.2s ease;
 }
 
-body.custom-cursor-active #custom-cursor-container {
+body.custom-cursor-active:not(.arcade-active) #custom-cursor-container {
   opacity: 1;
 }
 
-body.custom-cursor-active * {
+body.custom-cursor-active:not(.arcade-active) * {
   cursor: none !important;
 }
 
@@ -1483,4 +1483,139 @@ body.custom-cursor-active * {
 @keyframes floatPolaroid {
   0%, 100% { transform: rotate(-1deg) translateY(0); }
   50% { transform: rotate(1deg) translateY(-8px); }
+}
+
+/* ------------------------------------------ */
+/* NEW VAULT SECTIONS: SONGS & FLOWERS & UPDATE */
+/* ------------------------------------------ */
+
+.songs-flowers-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 30px;
+  margin-top: 20px;
+  align-items: start;
+}
+
+.bouquet-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.bouquet-img {
+  max-width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 3px solid var(--gold-accent);
+  box-shadow: 0 0 15px var(--gold-glow);
+  transition: transform 0.3s ease;
+}
+
+.bouquet-img:hover {
+  transform: scale(1.05) rotate(2deg);
+}
+
+.bouquet-caption {
+  margin-top: 15px;
+  font-family: var(--font-fancy);
+  color: var(--gold-accent);
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.videos-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.video-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.video-title {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: var(--pink-primary);
+  font-weight: 600;
+}
+
+.vault-video {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+  background: #000;
+  outline: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.update-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.update-photo-wrapper {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin: 0 auto;
+}
+
+.update-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--pink-primary);
+  box-shadow: 0 0 25px var(--pink-glow);
+  z-index: 2;
+  position: relative;
+}
+
+.photo-glow-ring {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  border: 2px dashed var(--gold-accent);
+  animation: rotateGlowRing 15s linear infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes rotateGlowRing {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .songs-flowers-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .bouquet-img {
+    height: 220px;
+  }
 }
