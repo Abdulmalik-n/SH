@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔮 Bestie's Cosmic Sanctuary ✨</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Starfield Twinkling Background -->
+  <div class="starfield" id="starfield"></div>
+
+  <!-- Custom Cursor Wrapper -->
+  <div id="custom-cursor-container">
+    <canvas id="cursor-canvas"></canvas>
+    <div id="custom-cursor-pointer">
+      <img id="custom-cursor-img" src="assets/photo_neutral.png" alt="Bestie Cursor">
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header>
+    <nav class="navbar">
+      <button class="nav-tab active" data-page="oracle-page">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Oracle
+      </button>
+      <button class="nav-tab" data-page="arcade-page">
+        <i class="fa-solid fa-gamepad"></i> Arcade
+      </button>
+      <button class="nav-tab" data-page="vault-page" id="nav-vault-btn">
+        <i class="fa-solid fa-lock"></i> Secret Vault
+      </button>
+    </nav>
+  </header>
+
+  <!-- Dynamic Ambient Audio Synthesizer Toggle -->
+  <button class="music-control" id="music-toggle" title="Toggle Magical Ambient Music">
+    <i class="fa-solid fa-music"></i>
+  </button>
+
+  <main class="page-container">
+
+    <!-- ========================================= -->
+    <!-- PAGE 1: COSMIC ORACLE                     -->
+    <!-- ========================================= -->
+    <section class="page active" id="oracle-page">
+      <div class="page-header">
+        <h1 class="page-title">🔮 The Cosmic Oracle</h1>
+        <p class="page-subtitle">Seek wisdom, peer into your stars, and consult the magic crystal ball!</p>
+      </div>
+
+      <div class="oracle-grid">
+        <!-- Bestie Destiny Spinner -->
+        <div class="glass-panel destiny-spinner-container">
+          <h2 style="font-family: var(--font-title); margin-bottom: 10px; color: var(--gold-accent);">Destiny Spinner</h2>
+          <p style="color: var(--text-pink); font-size: 0.9rem; text-align: center; margin-bottom: 20px;">Spin the cosmic wheel to reveal your daily bestie vibe & challenge!</p>
+          
+          <div class="wheel-wrapper">
+            <div class="wheel-pointer"></div>
+            <canvas id="wheel-canvas" width="320" height="320"></canvas>
+          </div>
+          
+          <button class="btn-mystic" id="spin-wheel-btn" style="margin-top: 20px; padding: 12px 28px;">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> SPIN THE WHEEL
+          </button>
+
+          <div class="spinner-display-box" id="spinner-display-box">
+            <span id="spinner-text">Click Spin to summon the stars...</span>
+          </div>
+        </div>
+
+        <!-- Tarot of Besties -->
+        <div class="glass-panel tarot-section">
+          <h2 style="font-family: var(--font-title); margin-bottom: 10px; color: var(--pink-primary);">Tarot of Besties</h2>
+          <p class="tarot-instructions">Draw three cards to unlock your cosmic bestie reading!</p>
+          
+          <div class="tarot-deck">
+            <!-- Card 1 -->
+            <div class="tarot-card" data-card-idx="0">
+              <div class="tarot-inner">
+                <div class="tarot-back"></div>
+                <div class="tarot-front">
+                  <div class="card-title">PAST</div>
+                  <div class="card-icon" id="tarot-icon-0">✨</div>
+                  <div class="card-desc" id="tarot-desc-0">Card info here.</div>
+                  <div class="card-type" id="tarot-name-0">Mystery</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="tarot-card" data-card-idx="1">
+              <div class="tarot-inner">
+                <div class="tarot-back"></div>
+                <div class="tarot-front">
+                  <div class="card-title">PRESENT</div>
+                  <div class="card-icon" id="tarot-icon-1">🔮</div>
+                  <div class="card-desc" id="tarot-desc-1">Card info here.</div>
+                  <div class="card-type" id="tarot-name-1">Mystery</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="tarot-card" data-card-idx="2">
+              <div class="tarot-inner">
+                <div class="tarot-back"></div>
+                <div class="tarot-front">
+                  <div class="card-title">FUTURE</div>
+                  <div class="card-icon" id="tarot-icon-2">🌟</div>
+                  <div class="card-desc" id="tarot-desc-2">Card info here.</div>
+                  <div class="card-type" id="tarot-name-2">Mystery</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn-mystic" id="draw-cards-btn">
+            <i class="fa-solid fa-shuffle"></i> Draw New Cards
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================= -->
+    <!-- PAGE 2: ARCADE WONDERLAND                 -->
+    <!-- ========================================= -->
+    <section class="page" id="arcade-page">
+      <div class="page-header">
+        <h1 class="page-title">🎮 Arcade Wonderland</h1>
+        <p class="page-subtitle">Play sweet, cute mini-games and unleash your creativity!</p>
+      </div>
+
+      <!-- Arcade Game Switcher -->
+      <div class="arcade-nav">
+        <button class="game-tab active" data-game="memory-game">🌸 Memory Match</button>
+        <button class="game-tab" data-game="catch-game">⭐ Sparkle Catch</button>
+        <button class="game-tab" data-game="glam-game">👑 Glam Lab</button>
+      </div>
+
+      <!-- Game 1: Memory Match -->
+      <div class="glass-panel game-window active" id="memory-game">
+        <h2 style="font-family: var(--font-title); text-align: center; color: var(--pink-primary); margin-bottom: 5px;">Bestie Memory Match</h2>
+        <p style="text-align: center; color: var(--text-pink); font-size: 0.9rem; margin-bottom: 20px;">Find matching pairs of emojis and secret bestie photos!</p>
+        
+        <div class="memory-grid" id="memory-grid">
+          <!-- Rendered dynamically in app.js -->
+        </div>
+
+        <div class="memory-stats">
+          <div>Moves: <span id="memory-moves">0</span></div>
+          <div>Time: <span id="memory-timer">0s</span></div>
+        </div>
+
+        <div style="text-align: center; margin-top: 25px;">
+          <button class="btn-outline" id="restart-memory-btn">
+            <i class="fa-solid fa-rotate-right"></i> Restart Game
+          </button>
+        </div>
+      </div>
+
+      <!-- Game 2: Sparkle Catch -->
+      <div class="glass-panel game-window" id="catch-game">
+        <h2 style="font-family: var(--font-title); text-align: center; color: var(--gold-accent); margin-bottom: 5px;">Sparkle Catch</h2>
+        <p style="text-align: center; color: var(--text-pink); font-size: 0.9rem; margin-bottom: 20px;">Collect sparkling hearts & stars, but dodge exam books and morning alarms!</p>
+        
+        <div class="catch-container">
+          <div class="game-canvas-wrapper">
+            <canvas id="catch-canvas" width="600" height="400"></canvas>
+            
+            <div class="catch-ui-overlay" id="catch-overlay">
+              <h3 class="catch-title" id="catch-overlay-title">Ready, Bestie?</h3>
+              <p class="catch-desc" id="catch-overlay-desc">Use your mouse/finger to slide your matching cup left and right to catch items. You have 3 lives!</p>
+              <button class="btn-mystic" id="start-catch-btn">
+                <i class="fa-solid fa-play"></i> Start Catching!
+              </button>
+            </div>
+          </div>
+
+          <div class="catch-score-bar">
+            <div>Score: <span id="catch-score">0</span></div>
+            <div>Lives: <span id="catch-lives">💖💖💖</span></div>
+            <div>High Score: <span id="catch-high-score">0</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Game 3: Dress Up Glam Lab -->
+      <div class="glass-panel game-window" id="glam-game">
+        <h2 style="font-family: var(--font-title); text-align: center; color: var(--purple-light); margin-bottom: 5px;">Glam Sticker Lab</h2>
+        <p style="text-align: center; color: var(--text-pink); font-size: 0.9rem; margin-bottom: 20px;">Add super cute stickers to your bestie's photo. Click stickers to add, drag to move, hover for sizing controls!</p>
+        
+        <div class="glam-container">
+          <!-- Sticker selection panel -->
+          <div class="sticker-menu">
+            <div class="cert-form-group">
+              <label>1. Select Base Photo</label>
+              <div class="model-selector">
+                <button class="model-btn active" data-photo="assets/photo_neutral.png">
+                  <img src="assets/photo_neutral.png" alt="Model 1">
+                </button>
+                <button class="model-btn" data-photo="assets/photo_surprise.png">
+                  <img src="assets/photo_surprise.png" alt="Model 2">
+                </button>
+                <button class="model-btn" data-photo="assets/photo_smile.png">
+                  <img src="assets/photo_smile.png" alt="Model 3">
+                </button>
+                <button class="model-btn" data-photo="assets/photo_glasses.png">
+                  <img src="assets/photo_glasses.png" alt="Model 4">
+                </button>
+              </div>
+            </div>
+
+            <div class="cert-form-group">
+              <label>2. Tap Stickers to Add</label>
+              <div class="sticker-list-container">
+                <div class="sticker-list">
+                  <button class="sticker-item" data-sticker="👑">👑</button>
+                  <button class="sticker-item" data-sticker="🎀">🎀</button>
+                  <button class="sticker-item" data-sticker="🕶️">🕶️</button>
+                  <button class="sticker-item" data-sticker="🌸">🌸</button>
+                  <button class="sticker-item" data-sticker="💖">💖</button>
+                  <button class="sticker-item" data-sticker="✨">✨</button>
+                  <button class="sticker-item" data-sticker="🦄">🦄</button>
+                  <button class="sticker-item" data-sticker="🐱">🐱</button>
+                  <button class="sticker-item" data-sticker="🧸">🧸</button>
+                  <button class="sticker-item" data-sticker="🔮">🔮</button>
+                  <button class="sticker-item" data-sticker="🦋">🦋</button>
+                  <button class="sticker-item" data-sticker="🍹">🍹</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sandbox Board -->
+          <div>
+            <div class="glam-board-container" id="glam-board">
+              <div class="board-placeholder-msg">Glam Board sandbox</div>
+              <img src="assets/photo_neutral.png" class="glam-board-bg-img" id="glam-bg-image" alt="Base Profile">
+              <!-- Placed stickers will populate here -->
+            </div>
+            
+            <div class="glam-actions">
+              <button class="btn-outline" id="clear-stickers-btn">
+                <i class="fa-solid fa-trash-can"></i> Clear Board
+              </button>
+              <button class="btn-mystic" id="save-glam-btn">
+                <i class="fa-solid fa-camera"></i> Save Creation
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================= -->
+    <!-- PAGE 3: SECRET FRIENDSHIP VAULT           -->
+    <!-- ========================================= -->
+    <section class="page" id="vault-page">
+      
+      <!-- Locked Overlay Screen -->
+      <div class="glass-panel vault-lock-screen" id="vault-lock-screen">
+        <div class="vault-lock-icon">
+          <i class="fa-solid fa-lock"></i>
+        </div>
+        <h2 style="font-family: var(--font-title); font-size: 2rem; color: var(--pink-primary); margin-bottom: 10px;">Secret Bestie Sanctuary</h2>
+        <p>This vault contains our most precious bestie secrets, memories, and certifications. Enter the passcode to unlock!</p>
+        
+        <div class="vault-passcode-container">
+          <input type="text" class="mystic-input" id="vault-passcode-input" placeholder="Enter Passcode..." style="width: 100%; text-align: center; font-size: 1.2rem; font-weight: 700; letter-spacing: 2px; margin-bottom: 15px; color: var(--gold-accent); text-transform: uppercase; border-color: var(--pink-primary);">
+          <div class="passcode-grid">
+            <button class="passcode-btn" data-val="1">1</button>
+            <button class="passcode-btn" data-val="2">2</button>
+            <button class="passcode-btn" data-val="3">3</button>
+            <button class="passcode-btn" data-val="4">4</button>
+            <button class="passcode-btn" data-val="5">5</button>
+            <button class="passcode-btn" data-val="6">6</button>
+            <button class="passcode-btn" data-val="7">7</button>
+            <button class="passcode-btn" data-val="8">8</button>
+            <button class="passcode-btn" data-val="9">9</button>
+            <button class="passcode-btn btn-clear" id="passcode-clear">C</button>
+            <button class="passcode-btn" data-val="0">0</button>
+            <button class="passcode-btn btn-enter" id="passcode-enter">OK</button>
+          </div>
+        </div>
+
+        <div id="vault-hint-box" class="glass-panel" style="margin-top: 25px; padding: 20px; border-color: var(--purple-light); text-align: left;">
+          <h4 style="color: var(--gold-accent); font-family: var(--font-title); font-size: 1rem; margin-bottom: 8px;">🔮 Cosmic Clue Portal</h4>
+          <p id="vault-hint-text" style="font-size: 0.9rem; line-height: 1.4; color: var(--text-pink);">
+            <strong>Initial Hint:</strong> It's an 8-digit number representing a very special day! 📅<br>
+            <span style="font-size: 0.8rem; display: block; margin-top: 10px; color: rgba(255, 255, 255, 0.4); border-top: 1px dashed rgba(255,255,255,0.15); padding-top: 8px;">
+              💡 <em>Want a new clue? Every time you send me a cute snap, I will give you a passcode (like SNAP1, SNAP2... up to SNAP10) to unlock a cryptic clue!</em>
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Unlocked Vault Content -->
+      <div class="vault-unlocked-content" id="vault-unlocked-content">
+        <div class="page-header">
+          <h1 class="page-title">💖 Unlocked Sanctuary</h1>
+          <p class="page-subtitle">Welcome to our secret place! Here are your surprises.</p>
+        </div>
+
+        <!-- Surprise 1: Polaroid Memory Wall -->
+        <div class="glass-panel">
+          <h2 style="font-family: var(--font-title); text-align: center; color: var(--gold-accent); margin-bottom: 30px;">Bestie Scrapbook Wall</h2>
+          <div class="polaroids-container">
+            <div class="polaroid-card" style="--rotate: -3deg">
+              <div class="polaroid-pin"></div>
+              <div class="polaroid-img-wrapper">
+                <img src="assets/photo_neutral.png" class="polaroid-img" alt="Memory 1">
+              </div>
+              <div class="polaroid-caption">Pretty Bestie ✨</div>
+            </div>
+            
+            <div class="polaroid-card" style="--rotate: 4deg">
+              <div class="polaroid-pin"></div>
+              <div class="polaroid-img-wrapper">
+                <img src="assets/photo_smile.png" class="polaroid-img" alt="Memory 2">
+              </div>
+              <div class="polaroid-caption">Silly Mood 🤪</div>
+            </div>
+
+            <div class="polaroid-card" style="--rotate: -2deg">
+              <div class="polaroid-pin"></div>
+              <div class="polaroid-img-wrapper">
+                <img src="assets/photo_glasses.png" class="polaroid-img" alt="Memory 3">
+              </div>
+              <div class="polaroid-caption">Coolest Queen 😎</div>
+            </div>
+
+            <div class="polaroid-card" style="--rotate: 3deg">
+              <div class="polaroid-pin"></div>
+              <div class="polaroid-img-wrapper">
+                <img src="assets/photo_surprise.png" class="polaroid-img" alt="Memory 4">
+              </div>
+              <div class="polaroid-caption">OMG Face! 🌸</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Surprise 2: Best Friend Certificate Generator -->
+        <div class="glass-panel">
+          <h2 style="font-family: var(--font-title); text-align: center; color: var(--pink-primary); margin-bottom: 25px;">Bestie Award Generator</h2>
+          
+          <div class="cert-section">
+            <div class="cert-form">
+              <div class="cert-form-group">
+                <label for="cert-name-input">Awarded To (Bestie's Name)</label>
+                <input type="text" class="mystic-input" id="cert-name-input" placeholder="e.g. Princess Bestie">
+              </div>
+
+              <div class="cert-form-group">
+                <label for="cert-title-select">For Being The Most</label>
+                <select class="cert-select" id="cert-title-select">
+                  <option value="Slay Queen of the Year">👑 Slay Queen of the Year</option>
+                  <option value="Amazing Partner In Crime">👯 Partner In Crime</option>
+                  <option value="Sparkly Drama Supporter">🎭 Drama Listening Expert</option>
+                  <option value="Caring & Sweetest Soul Ever">🌸 Sweetest Soul Ever</option>
+                  <option value="Fashionable Makeup Advisor">💄 Style Icon</option>
+                </select>
+              </div>
+
+              <div class="cert-form-group">
+                <label for="cert-signed-input">Signed with Love By</label>
+                <input type="text" class="mystic-input" id="cert-signed-input" placeholder="Your Name">
+              </div>
+
+              <button class="btn-mystic" id="generate-cert-btn" style="margin-top: 15px;">
+                <i class="fa-solid fa-stamp"></i> Update Award
+              </button>
+
+              <button class="btn-outline" id="download-cert-btn">
+                <i class="fa-solid fa-download"></i> Download Award Image
+              </button>
+            </div>
+
+            <!-- Preview Canvas -->
+            <div class="cert-canvas-container">
+              <canvas id="cert-canvas" width="600" height="420"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Surprise 3: Magic Wish Crystal -->
+        <div class="glass-panel wish-section">
+          <h2 style="font-family: var(--font-title); color: var(--purple-light);">Magic Wish Crystal</h2>
+          <p style="color: var(--text-pink); font-size: 0.95rem;">Tap the magical crystal below to receive a special daily affirmation & wish just for you!</p>
+          
+          <div class="wish-crystal" id="wish-crystal" style="cursor: pointer;">🔮</div>
+          
+          <div class="wish-display-box">
+            <span class="wish-text" id="wish-text">Tap the crystal to release its magic...</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Failed Attempt Overlay Modal -->
+  <div id="vault-fail-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10, 5, 24, 0.93); z-index: 1000000; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.35s ease;">
+    <div style="text-align: center; transform: scale(0.85); transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);" id="fail-overlay-card">
+      <img src="assets/photo_smile.png" alt="Silly Smiling Face" style="width: 190px; height: 190px; border-radius: 50%; border: 4px solid var(--pink-primary); box-shadow: 0 0 35px var(--pink-glow); margin-bottom: 25px; animation: shake 0.5s ease-in-out infinite;">
+      <h2 style="font-family: var(--font-title); color: var(--gold-accent); font-size: 2.2rem; margin-bottom: 12px; letter-spacing: 2px;">Nu-uh! 🤪</h2>
+      <p style="font-family: var(--font-body); color: var(--text-light); font-size: 1.4rem; max-width: 320px; line-height: 1.5; text-shadow: 0 0 10px rgba(255,133,162,0.5);">no no u need to guess more than that</p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
