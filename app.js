@@ -5,10 +5,10 @@ const state = {
   activePage: 'oracle-page',
   soundEnabled: false,
   cursor: {
-    x: 0,
-    y: 0,
-    targetX: 0,
-    targetY: 0,
+    x: -100,
+    y: -100,
+    targetX: -100,
+    targetY: -100,
     isHovered: false,
     isClicked: false
   },
@@ -90,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initOracle();
   initArcade();
   initVault();
+  initWelcomePolaroid();
 });
 
 // ==========================================
@@ -177,11 +178,15 @@ function initCursor() {
 
   // Track mouse coordinates
   window.addEventListener('mousemove', (e) => {
+    if (!document.body.classList.contains('custom-cursor-active')) {
+      document.body.classList.add('custom-cursor-active');
+    }
+    
     state.cursor.targetX = e.clientX;
     state.cursor.targetY = e.clientY;
     
     // Initialize start cursor coords if first move
-    if (state.cursor.x === 0 && state.cursor.y === 0) {
+    if (state.cursor.x === -100 && state.cursor.y === -100) {
       state.cursor.x = e.clientX;
       state.cursor.y = e.clientY;
     }
@@ -760,7 +765,7 @@ function setupMemoryGame() {
     front.className = 'memory-front';
 
     if (item.type === 'img') {
-      front.innerHTML = `<img class="memory-front-img" src="${item.value}" alt="Bestie">`;
+      front.innerHTML = `<img class="memory-front-img" src="${item.value}" alt="Bestie" onerror="if(this.src.includes('assets/')) this.src=this.src.replace('assets/', '');">`;
     } else {
       front.innerHTML = `<span style="font-size: 2.2rem;">${item.value}</span>`;
     }
@@ -1524,4 +1529,52 @@ function triggerVaultConfetti() {
       confetti.remove();
     }, duration * 1000 + 100);
   }
+}
+
+// ==========================================
+// WELCOME POLAROID LOGIC
+// ==========================================
+function initWelcomePolaroid() {
+  const polaroid = document.getElementById('welcome-polaroid');
+  const img = document.getElementById('welcome-polaroid-img');
+  
+  if (!polaroid || !img) return;
+
+  const photos = [
+    'assets/photo_neutral.png',
+    'assets/photo_smile.png',
+    'assets/photo_glasses.png',
+    'assets/photo_surprise.png'
+  ];
+  
+  let currentIdx = 0;
+  
+  polaroid.addEventListener('click', () => {
+    currentIdx = (currentIdx + 1) % photos.length;
+    img.src = photos[currentIdx];
+    
+    // Play sweet procedural chime
+    if (state.soundEnabled) {
+      playChime();
+    } else {
+      // Proactively prompt audio context setup on first click if audio wasn't active
+      if (!state.audioCtx) {
+        state.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      state.soundEnabled = true;
+      const toggleBtn = document.getElementById('music-toggle');
+      if (toggleBtn) {
+        toggleBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+        toggleBtn.style.color = 'var(--gold-accent)';
+        startAmbientMusic();
+      }
+      playChime();
+    }
+    
+    // Bouncy animation
+    polaroid.style.transform = 'scale(0.95) rotate(-5deg)';
+    setTimeout(() => {
+      polaroid.style.transform = '';
+    }, 150);
+  });
 }
