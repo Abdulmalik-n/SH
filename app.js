@@ -144,12 +144,14 @@ function initSPA() {
 
       // Trigger custom screen adjustments
       if (pageId === 'arcade-page') {
+        document.body.classList.add('arcade-active');
         // Reset or adjust active arcade game
         const activeGameTab = document.querySelector('.game-tab.active');
         if (activeGameTab) {
           triggerGameSetup(activeGameTab.getAttribute('data-game'));
         }
       } else {
+        document.body.classList.remove('arcade-active');
         stopCatchGame();
       }
 
@@ -178,12 +180,17 @@ function initCursor() {
 
   // Track mouse coordinates
   window.addEventListener('mousemove', (e) => {
+    state.cursor.targetX = e.clientX;
+    state.cursor.targetY = e.clientY;
+    
+    if (state.activePage === 'arcade-page') {
+      document.body.classList.remove('custom-cursor-active');
+      return;
+    }
+    
     if (!document.body.classList.contains('custom-cursor-active')) {
       document.body.classList.add('custom-cursor-active');
     }
-    
-    state.cursor.targetX = e.clientX;
-    state.cursor.targetY = e.clientY;
     
     // Initialize start cursor coords if first move
     if (state.cursor.x === -100 && state.cursor.y === -100) {
@@ -203,7 +210,7 @@ function initCursor() {
       const touch = e.touches[0];
       state.cursor.targetX = touch.clientX;
       state.cursor.targetY = touch.clientY;
-      if (Math.random() < 0.25) {
+      if (state.activePage !== 'arcade-page' && Math.random() < 0.25) {
         spawnParticle(touch.clientX, touch.clientY);
       }
     }
@@ -214,14 +221,17 @@ function initCursor() {
       const touch = e.touches[0];
       state.cursor.targetX = touch.clientX;
       state.cursor.targetY = touch.clientY;
-      for (let i = 0; i < 6; i++) {
-        spawnParticle(touch.clientX, touch.clientY, true);
+      if (state.activePage !== 'arcade-page') {
+        for (let i = 0; i < 6; i++) {
+          spawnParticle(touch.clientX, touch.clientY, true);
+        }
       }
     }
   }, { passive: true });
 
   // Track click state
   window.addEventListener('mousedown', () => {
+    if (state.activePage === 'arcade-page') return;
     state.cursor.isClicked = true;
     cursorImg.classList.add('clicked');
     
@@ -238,6 +248,7 @@ function initCursor() {
   });
 
   window.addEventListener('mouseup', () => {
+    if (state.activePage === 'arcade-page') return;
     state.cursor.isClicked = false;
     cursorImg.classList.remove('clicked');
     
